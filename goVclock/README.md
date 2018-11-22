@@ -2,7 +2,7 @@
 
 to compile: go build
 
-to run: ./goVclock2
+to run: ./goVclock
 
 The purpose of a vector clock is to create a partial ordering of events in a distributed system. This enables a system to detect causality violations. Each of N processes keeps a vector with N elements and increments those elements according to these rules:
 

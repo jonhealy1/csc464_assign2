@@ -12,7 +12,6 @@ func BGP(genOrder int, id int, m int, n int, g7 map[int][]int, wg *sync.WaitGrou
 		defer wg.Done()
 		mutex.Lock()
 		//g7[id] = append(g7[id], genOrder)
-
 		//fmt.Println("id:", id, g7[id])
 		mutex.Unlock()
 		return g7
@@ -60,7 +59,6 @@ func main() {
 		traitOrder = 1
 	}
 
-
 	wg.Add(numGen-1)
 
 	g7 := make(map[int][]int)
@@ -86,11 +84,9 @@ func main() {
 	var recursion int
 
 	if numTrait == 0 {
-		recursion = numGen
-
+		recursion = 1
 	} else {
 		recursion = numTrait
-		//recursion = numGen
 	}
 
 	for i:=1; i<numGen; i++ {
@@ -101,6 +97,7 @@ func main() {
 
 	for i:=1; i<numGen; i++ {
 		fmt.Println("Lieutenant", i, "received:", g7[i])
+		//fmt.Print("Lieutenant ", i, " ")
 		zeroCount := 0
 		oneCount := 0
 
@@ -139,15 +136,5 @@ func main() {
 				fmt.Println("UNDECIDED")
 			}
 		}
-
-
-		
-
 	}
-
-	//for k, v := range g7 {
-	//	fmt.Println("Lieutenant:", k, "Receives:", v)
-	//}
-	//time.Sleep(5 * time.Second)
-	
 }

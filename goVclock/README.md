@@ -78,4 +78,4 @@ B sent 200 messages and received 200 for a total of 400
 
 C sent 100 messages and received 200 for a total of 300
 
-In this implementation, one process (C) always has the correct number of total messages in it's vector however this is not something that would always hold true and is only dependent on the order in which messages are sent. If the last two messages sent were from B to A and then B to C, no process would have the correct number of total messages. All three processes do have close to the same vector clock values and this ensures that there is relative ordering in this system. 
+In this implementation, one process (C) always has the correct number of total messages in its vector however this is not something that would always hold true and is only dependent on the order in which messages are sent. If the last two messages sent were from B to A and then B to C, no process would have the correct number of total messages. All three processes do have close to the same vector clock values and this ensures that there is relative ordering in this system. 

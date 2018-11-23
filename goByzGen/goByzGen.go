@@ -19,10 +19,10 @@ func BGP(genOrder int, id int, m int, n int, g7 map[int][]int, wg *sync.WaitGrou
 
 	mutex.Lock()
 		
-	for j := 1; j < n; j++ {
+	for j := 0; j < n; j++ {
 		if j == id {
 		} else { 
-			g7[id] = append(g7[id], g7[j][0])
+			g7[j] = append(g7[j], g7[id][0])
 		}
 	}
 	
@@ -44,7 +44,7 @@ func main() {
 	var genOrder int 
 		
 	if numTrait != 0 {
-		fmt.Println("Does the Commander order ATTACK(enter 1), RETREAT(0)?:")
+		fmt.Println("Does the Commander order ATTACK(enter 1) or RETREAT(0)?:")
 		fmt.Scanln(&genOrder) 
 	} else {
 		genOrder = 1
@@ -64,11 +64,11 @@ func main() {
 	g7 := make(map[int][]int)
 
 	if numTrait != 0 {
-		for j:=0; j<numGen-numTrait; j++ {
+		for j:=1; j<numGen-numTrait; j++ {
 			g7[j] = append(g7[j], genOrder)
 		}
 	} else {
-		for j:=0; j<numGen-numTrait; j++ {
+		for j:=1; j<numGen-numTrait; j++ {
 			if j%2 == 0 {
 				g7[j] = append(g7[j], 0)
 			} else if j%2 == 1 {

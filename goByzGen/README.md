@@ -42,7 +42,7 @@ The Byzantine Generals Problem was introduced by Leslie Lamport and is a classic
 
 There is one general who is designated as the Commander and this general begins by sending each other general a message to Attack or Retreat. The remaing generals or Lieutenants then communicate with each other in order to come to a consensus on a unified plan of attack (or retreat).
 
-Problems arise when either the Commander or a number of the Lieutenants are Traitors. According to Lamport, in a system with 3m + 1 Generals, a maximum of m Traitors can exist before serious complications occur. Additionally, if the Commander is a Traitor and instructs some Lieutenants to Attack and others to Retreat there can be no consensus in a system with an even number of Lieutenants. 
+Problems arise when either the Commander or a number of the Lieutenants are Traitors. According to Lamport, in a system with 3m + 1 Generals, a maximum of m Traitors can exist before serious complications occur. Additionally, if the Commander is a Traitor and instructs some Lieutenants to Attack and others to Retreat there can be no consensus in a system with an even number of Lieutenants (this last sentence in my take on it). 
 
 The two conditions as presented by Lamport are:
 
@@ -127,6 +127,9 @@ Lamport introduced a recursive algorithm to deal with the Byzantine Generals Pro
 2. For each i, let vi be the value lieutenant i receives from the general. Lieutenant i acts as the general in Algorithm OM(m-1) to send the value vi to each of the n-2 other lieutenants.
 3. For each i, and each j ≠ i, let vi be the value lieutenant i received from lieutenant j in step 2(using Algorithm (m-1)). Lieutenant i uses the value majority (v1, v2, ... vn)
 
-In my implementation, the vote from the Commander is appended before starting the recursion. Each Lieutenant is represented as a separate goroutine. A Mutex is used to Lock and Unlock the critical section and finally a WaitGroup is used to ensure that all goroutines finish before evaluating the final results. Votes themselves are being appended to a map representing a separate slice for each Lieutenant. 
+In my implementation, the vote from the Commander is appended before starting the recursion. Each Lieutenant is represented as a separate goroutine. A Mutex is used to Lock and Unlock critical sections and finally a WaitGroup is used to ensure that all goroutines finish before evaluating the final results. Votes themselves are being appended to a map representing a separate slice for each Lieutenant. 
 
-To understand this problem I drew numerous diagrams. After cross referencing what I came up with with what was presented in Lamport's paper I felt confident enough to start writing some code. To test my implementation I looked at the mathematics that Lamport proves in his paper and ran numerous cases using that math to ensure that my program outputs the expected results. An example of this approach is presented above in examples 1, 2, and 3.
+To understand this problem I drew numerous diagrams. After cross referencing what I came up with compared to what was presented in Lamport's paper I felt confident enough to start writing some code. To test my implementation I looked at the mathematics that Lamport proves in his paper and ran numerous cases using that math to ensure that my program outputs the expected results. An example of this approach is presented above in examples 1, 2, and 3. 
+
+Note: Further testing, late at night on the due date for this assignment, with larger numbers of Traitors (> 5) did not produce the results I expected. I am not sure if this is because of a bug in my code or is a result of me not understanding the problem completely. I watched some slides online and the author said that 2m + 1 loyal nodes are needed to handle m Traitors not 3m + 1?
+

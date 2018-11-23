@@ -7,11 +7,13 @@ to run: ./goVclock
 
 ## Introduction:
 
-The purpose of a vector clock is to create a partial ordering of events in a distributed system. This enables a system to detect causality violations. Each of N processes keeps a vector with N elements and increments those elements according to these rules:
+The purpose of a vector clock is to create an ordering of events in a distributed system. This enables a system to detect causality violations. Each of N processes keeps a vector with N elements and increments those elements according to these rules:
 
-1. When sending a message, a process increments its own element and then sends a copy of its vector to the process it is sending a message to.
+1. When a process does works it implements the clock value of its node in its own vector.
 
-2. When a process receives a message, it increments its own element and then compares the values in its vector against the vector that was sent to it, choosing to use the higher of the two values for each element.
+2. When sending a message, a process increments its own element and then sends a copy of its vector to the process it is sending a message to.
+
+3. When a process receives a message, it increments its own element and then compares the values in its vector against the vector that was sent to it, choosing to use the higher of the two values for each element.
 
 In this way, order is maintained in a distributed system without a reliable universal clock that spans multiple processes.
 

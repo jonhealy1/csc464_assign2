@@ -40,9 +40,17 @@ Lieutenant 4 received: [0 1 0 1] UNDECIDED
 
 The Byzantine Generals Problem was introduced by Leslie Lamport and is a classic problem in the field of distributed systems regarding consensus. In this problem there are a number of generals who are surrounding a city and they must decide on a plan of action amongst themselves by using a series of messages to communicate. 
 
-There is one general who is designated as the Commander and this general begins by sending each other general a message to Attack or Retreat. The remaing generals or Lieutenants then communicate with each other in order to come to a consensus on a unified plan of attack.
+There is one general who is designated as the Commander and this general begins by sending each other general a message to Attack or Retreat. The remaing generals or Lieutenants then communicate with each other in order to come to a consensus on a unified plan of attack (or retreat).
 
 Problems arise when either the Commander or a number of the Lieutenants are Traitors. According to Lamport, in a system with 3m + 1 Generals, a maximum of m Traitors can exist before serious complications occur. Additionally, if the Commander is a Traitor and instructs some Lieutenants to Attack and others to Retreat there can be no consensus in a system with an even number of Lieutenants. 
+
+The two conditions as presented by Lamport are:
+
+1. All loyal generals decide upon the same plan of action. He further stipulates that loyal generals should be able to come up with a reasonable plan.
+
+2. A small number of generals cannot cause the loyal generals to come up with a bad plan. 
+
+What is implied here is not just consensus but consensus on the right plan or the plan as presented by the Commander. With a large number of Traitors there can be consensus but the agreement reached will violate the Commander's orders and probably lead to total disaster.
 
 **Example 1:** Let's look at a system with 10 generals. According to Lamport this system should be able to handle at most 3 traitors gracefully. 3m + 1 = 10 ; m = 3
 
@@ -64,7 +72,7 @@ Lieutenant 8 TRAITOR
 Lieutenant 9 TRAITOR
 
 
-**Example 2:** Let's add 1 Traitor to the above example. Havoc. 
+**Example 2:** Let's add 1 Traitor to the above example. Havoc. m = 4; 3m + 1 = 13
 
 How many Generals? (One will be the Commander):
 10
@@ -84,7 +92,7 @@ Lieutenant 8 TRAITOR
 Lieutenant 9 TRAITOR
 
 
-**Example 3:** Adding one more Traitor...
+**Example 3:** Adding one more Traitor... m = 5; 3m + 1 = 16
 
 How many Generals? (One will be the Commander):
 10

@@ -1,8 +1,11 @@
-# goVclock
+## goVclock
 
 to compile: go build
 
 to run: ./goVclock
+
+
+## Introduction:
 
 The purpose of a vector clock is to create a partial ordering of events in a distributed system. This enables a system to detect causality violations. Each of N processes keeps a vector with N elements and increments those elements according to these rules:
 
@@ -14,7 +17,8 @@ In this way, order is maintained in a distributed system without a reliable univ
 
 ![alt text](https://i.postimg.cc/J7TFRDF8/go-Vclock2.png)
 
-Sample Output:
+
+## Sample Output:
 
 How many iterations?
 1
@@ -50,3 +54,22 @@ A sent 2 messages and received 1 for a total of 3
 B sent 2 messages and received 2 for a total of 4
 
 C sent 1 messages and received 2 for a total of 3
+
+
+## Implementation:
+
+This program presents a very simple simulation to show how vector clocks work. There are only 3 processes used in this implemenation which are labelled A, B, and C. To represent these processes I used a separate goroutine for each. To communicate and send information between A, B, and C, I used go channels. There are 3 channels in total, one for A and C, one for A and B, and finally one for B and C. I used a WaitGroup to ensure that A, B, and C would be finished before displaying the final results. 
+
+I wrote more functions than I needed to because it made it easier to look at the code and visualize where messages were coming from and going to. I did collapse all of the functions at one point but it became harder for me to understand what was going on. For example, I have a receiveAB function and a receiveAC function instead of just a general receive function. ReceiveAB simply means that B is receiving a message from A. 
+
+For testing, I drew numerous diagrams and compared them to what was outputed after running this code. I did not come up with a better method for testing. This is the output for this program after 100 iterations:
+
+final value for A: {300 398 298}
+final value for B: {299 400 298}
+final value for C: {300 400 300}
+
+A sent 200 messages and received 100 for a total of 300
+B sent 200 messages and received 200 for a total of 400
+C sent 100 messages and received 200 for a total of 300
+
+In this implementation, one process (C) always has the correct number of total messages in it's clock vector however this is not something that would always hold true and is only dependent on the order in which messages are sent. If the last two messages sent were from B to A and then B to C, no process would have the correct number of total messages. All three processes do have close to the same vector clock values and this ensures that there is relative ordering in this system. 

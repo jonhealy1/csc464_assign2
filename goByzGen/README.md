@@ -52,6 +52,8 @@ The two conditions as presented by Lamport are:
 
 What is implied here is not just consensus but consensus on the right plan or the plan as presented by the Commander. With a large number of Traitors there can be consensus but the agreement reached will violate the Commander's orders and probably lead to total disaster.
 
+Note: I am not asking for m, the level of recursion, in the console as in my understanding m is the number of traitors.
+
 **Example 1:** Let's look at a system with 10 generals. According to Lamport this system should be able to handle at most 3 traitors gracefully. 3m + 1 = 10 ; m = 3
 
 How many Generals? (One will be the Commander):
